@@ -53,5 +53,8 @@
   "engines": {
     "node": "^16.17.0"
   },
-  "packageManager": "pnpm@7.27.0"
+  "packageManager": "pnpm@7.27.0",
+  "publishConfig": {
+    "@greg-torrington:registry": "https://npm.pkg.github.com"
+  }
 }
