@@ -29,14 +29,14 @@ jobs:
           fetch-depth: 0
       - uses: nrwl/nx-set-shas@v3
       - uses: pnpm/action-setup@v2.2.3
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
       - name: Setup Node.js
         id: setup-node
         uses: actions/setup-node@v3
         with:
           node-version-file: '.nvmrc'
           cache: 'pnpm'
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
       - name: 💾 Cache Nx cache
         id: package-cache
         uses: actions/cache@v3
