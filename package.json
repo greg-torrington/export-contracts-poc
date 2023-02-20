@@ -57,6 +57,6 @@
   },
   "packageManager": "pnpm@7.27.0",
   "publishConfig": {
-    "@greg-torrington:registry": "https://npm.pkg.github.com"
+    "registry": "https://npm.pkg.github.com"
   }
 }

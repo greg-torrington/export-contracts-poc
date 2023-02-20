@@ -24,9 +24,6 @@ jobs:
     name: 🏗 Build Project, 🧪 Run Tests & 🚀 Deploy
     runs-on: ubuntu-latest
     timeout-minutes: 30
-    permissions:
-      packages: write
-      contents: read
     steps:
       - uses: actions/checkout@v3
         with:
@@ -43,8 +40,6 @@ jobs:
         with:
           node-version-file: '.nvmrc'
           cache: 'pnpm'
-          node-version: 16
-          registry-url: https://npm.pkg.github.com/
       - name: 💾 Cache Nx cache
         id: package-cache
         uses: actions/cache@v3
@@ -60,6 +55,3 @@ jobs:
         run: pnpm nx affected --target=package --parallel=2
       - name: '🧪 Run tests'
         run: pnpm nx affected --targets=test-linter,test-type,test-unit,test-circular --parallel=2
-      - run: npm ci
-      - name: 'Publish' 
-        run: npm publish

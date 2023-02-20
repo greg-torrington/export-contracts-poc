@@ -1,0 +1,44 @@
+on:
+  push:
+    branches:
+      - main
+name: release-please
+jobs:
+  release-please:
+    runs-on: ubuntu-latest
+    outputs:
+      release_created: ${{ steps.release-please.outputs.release_created }}
+    steps:
+      - uses: google-github-actions/release-please-action@v3
+        id: release-please
+        with:
+          release-type: "node"
+          package-name: "@Wizzair-OneWizz/cdk-constructs"
+
+  publish-package:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    needs: release-please
+    if: ${{ needs.release-please.outputs.release_created  }}
+    steps:
+      # The logic below handles the npm publication:
+      - uses: actions/checkout@v3
+      # Setup .npmrc file to publish to GitHub Packages
+      - uses: actions/setup-node@v3
+        with:
+          node-version: "16.x"
+          registry-url: "https://npm.pkg.github.com"
+          cache: "yarn"
+      - name: Setup .yarnrc.yml
+        run: |
+          yarn config set --home npmScopes.wizzair-onewizz.npmRegistryServer "https://npm.pkg.github.com"
+          yarn config set --home npmScopes.wizzair-onewizz.npmAlwaysAuth true
+          yarn config set --home npmScopes.wizzair-onewizz.npmAuthToken $NPM_AUTH_TOKEN
+        env:
+          NPM_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Install dependencies
+        run: yarn install
+      - run: yarn build
+      - run: yarn npm publish
