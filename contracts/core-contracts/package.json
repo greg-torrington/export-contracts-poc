@@ -1,7 +1,7 @@
 {
   "name": "@export-contracts-poc/core-contracts",
   "private": true,
-  "version": "1.0.0",
+  "version": "0.0.2",
   "license": "UNLICENSED",
   "sideEffects": false,
   "files": [
