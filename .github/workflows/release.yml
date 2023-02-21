@@ -36,7 +36,7 @@ jobs:
         uses: ./.github/actions/install-node-deps
       - name: Package and cache builds
         uses: ./.github/actions/package
-      - name: 🚀 Publish secrets.AUTH_TOKEN
+      - name: 🚀 Publish
         run: pnpm publish
         working-directory: ./contracts/core-contracts
         env:
