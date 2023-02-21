@@ -27,6 +27,8 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 30
     needs: [release-please]
+    env:
+          NPM_AUTH_TOKEN: ${{ secrets.AUTH_TOKEN }}
     steps:
       - uses: actions/checkout@v3
         with:
@@ -36,8 +38,8 @@ jobs:
         uses: ./.github/actions/install-node-deps
       - name: Package and cache builds
         uses: ./.github/actions/package
+      - name: Setup Config
+        run: npm config set '//npm.pkg.github.com/:_authToken' "${NPM_TOKEN}"
       - name: 🚀 Publish
         run: pnpm publish
         working-directory: ./contracts/core-contracts
-        env:
-          NPM_AUTH_TOKEN: ${{ secrets.AUTH_TOKEN }}
