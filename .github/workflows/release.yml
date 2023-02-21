@@ -26,7 +26,6 @@ jobs:
   publish:
     runs-on: ubuntu-latest
     timeout-minutes: 30
-    needs: [release-please]
     steps:
       - uses: actions/checkout@v3
         with:
