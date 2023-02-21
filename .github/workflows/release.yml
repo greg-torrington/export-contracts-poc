@@ -24,6 +24,6 @@ jobs:
           monorepo-tags: true
       - name: 🚀 Publish ${{ matrix.package }}
         run: npm publish
-        working-directory: ${{ format('./{0}') }}
+        working-directory: matrix.package
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
