@@ -22,8 +22,25 @@ jobs:
         with:
           command: manifest
           monorepo-tags: true
+  publish:
+    name: Publish ${{ matrix.package }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    needs: [release-please, build-lint]
+    strategy:
+      matrix:
+        package: ${{ fromJSON(needs.release-please.outputs.paths_released) }}
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          # We need to fetch all branches and commits so that Nx affected has a base to compare against.
+          fetch-depth: 0
+      - name: Install & cache node dependencies
+        uses: ./.github/actions/install-node-deps
+      - name: Package and cache builds
+        uses: ./.github/actions/package
       - name: 🚀 Publish ${{ matrix.package }}
-        run: npm publish
-        working-directory: contracts/core-contracts/package.json
+        run: pnpm publish
+        working-directory: ${{ format('./{0}', matrix.package) }}
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
