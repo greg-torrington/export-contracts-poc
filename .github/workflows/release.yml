@@ -22,8 +22,8 @@ jobs:
         with:
           command: manifest
           monorepo-tags: true
-      - name: 🚀 Publish ${{ matrix.package }}
+      - name: 🚀 Publish ./contracts/core-contracts
         run: npm publish
-        working-directory: ${{ format('./{0}', matrix.package) }}
+        working-directory: ./contracts/core-contracts
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
