@@ -1,7 +1,6 @@
 {
-  "name": "@export-contracts-poc/core-contracts",
-  "private": true,
-  "version": "1.0.0",
+  "name": "@greg-torrington/core-contracts",
+  "version": "0.0.8",
   "license": "UNLICENSED",
   "sideEffects": false,
   "files": [
@@ -28,7 +27,6 @@
     "watch": "pnpm clean && concurrently 'pnpm:package-* --watch'"
   },
   "dependencies": {
-    "@export-contracts-poc/serverless-configuration": "workspace:1.0.0",
     "@swarmion/serverless-contracts": "^0.24.0",
     "json-schema-to-ts": "^2.6.2"
   },

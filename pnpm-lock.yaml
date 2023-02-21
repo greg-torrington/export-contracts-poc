@@ -59,7 +59,6 @@ importers:
       '@babel/plugin-transform-runtime': ^7.18.9
       '@babel/preset-env': ^7.19.4
       '@babel/preset-typescript': ^7.18.6
-      '@export-contracts-poc/serverless-configuration': workspace:1.0.0
       '@swarmion/serverless-contracts': ^0.24.0
       '@types/node': ^18.11.13
       concurrently: ^7.6.0
@@ -74,7 +73,6 @@ importers:
       typescript: ^4.9.4
       vitest: ^0.28.0
     dependencies:
-      '@export-contracts-poc/serverless-configuration': link:../../packages/serverless-configuration
       '@swarmion/serverless-contracts': 0.24.0_45titte3zzfkgkvp42xchuwplu
       json-schema-to-ts: 2.6.2
     devDependencies:
@@ -126,8 +124,8 @@ importers:
 
   services/core:
     specifiers:
-      '@export-contracts-poc/core-contracts': 1.0.0
       '@export-contracts-poc/serverless-configuration': 1.0.0
+      '@greg-torrington/core-contracts': 0.0.7
       '@serverless/typescript': ^3.27.0
       '@swarmion/serverless-helpers': ^0.25.0
       '@types/node': ^18.11.13
@@ -146,7 +144,7 @@ importers:
       '@export-contracts-poc/serverless-configuration': link:../../packages/serverless-configuration
       '@swarmion/serverless-helpers': 0.25.0_qcnbb66qmcbfzbsze52aff7ygm
     devDependencies:
-      '@export-contracts-poc/core-contracts': link:../../contracts/core-contracts
+      '@greg-torrington/core-contracts': link:../../contracts/core-contracts
       '@serverless/typescript': 3.27.0
       '@types/node': 18.11.18
       '@vitest/coverage-c8': 0.28.2

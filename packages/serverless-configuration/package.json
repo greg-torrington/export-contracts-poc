@@ -1,6 +1,5 @@
 {
   "name": "@export-contracts-poc/serverless-configuration",
-  "private": true,
   "version": "1.0.0",
   "license": "UNLICENSED",
   "sideEffects": false,
