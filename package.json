@@ -1,6 +1,6 @@
 {
   "name": "@greg-torrington/root",
-  "version": "1.9.2",
+  "version": "2.0.0",
   "license": "MIT",
   "workspaces": [
     "contracts/*",
