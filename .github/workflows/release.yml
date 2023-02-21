@@ -37,6 +37,6 @@ jobs:
         uses: ./.github/actions/package
       - name: 🚀 Publish
         run: pnpm publish
-        working-directory: ./contracts
+        working-directory: ./contracts/core-contracts
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NODE_AUTH_TOKEN: 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
