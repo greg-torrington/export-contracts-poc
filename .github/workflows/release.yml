@@ -1,0 +1,45 @@
+on:
+  push:
+    branches:
+      - main
+
+name: release
+
+permissions:
+  contents: write # This is required for actions/checkout (read) and google-github-actions/release-please-action@v3 (write)
+  actions: read # This is required for nrwl/nx-set-shas
+  packages: write # This is required for publish
+  pull-requests: write # This is required for google-github-actions/release-please-action@v3
+
+jobs:
+  release-please:
+    runs-on: ubuntu-latest
+    outputs:
+      release_created: ${{ steps.release-please.outputs.release_created }}
+    steps:
+      - uses: google-github-actions/release-please-action@v3
+        id: release-please
+        with:
+          command: manifest
+          monorepo-tags: true
+
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    needs: [release-please]
+    env:
+          NPM_AUTH_TOKEN: ${{ secrets.AUTH_TOKEN }}
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          # We need to fetch all branches and commits so that Nx affected has a base to compare against.
+          fetch-depth: 0
+      - name: Install & cache node dependencies
+        uses: ./.github/actions/install-node-deps
+      - name: Package and cache builds
+        uses: ./.github/actions/package
+      - run: pnpm config set @greg-torrington:registry=https://npm.pkg.github.com/
+      - run: pnpm config set //npm.pkg.github.com/:_authToken=${NPM_AUTH_TOKEN}
+      - name: 🚀 Publish
+        run: pnpm publish --no-git-checks
+        working-directory: ./contracts/core-contracts
