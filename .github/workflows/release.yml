@@ -40,6 +40,6 @@ jobs:
         uses: ./.github/actions/package
       - run: pnpm config set @greg-torrington:registry=https://npm.pkg.github.com/
       - run: pnpm config set //npm.pkg.github.com/:_authToken=${NPM_AUTH_TOKEN}
-      - name: 🚀 Publish --no-git-checks
-        run: pnpm publish
+      - name: 🚀 Publish
+        run: pnpm publish --no-git-checks
         working-directory: ./contracts/core-contracts
