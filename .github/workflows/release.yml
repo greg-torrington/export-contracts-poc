@@ -38,6 +38,8 @@ jobs:
         uses: ./.github/actions/install-node-deps
       - name: Package and cache builds
         uses: ./.github/actions/package
+      - run: pnpm config set @greg-torrington:registry=https://npm.pkg.github.com/
+      - run: pnpm config set //npm.pkg.github.com/:_authToken=${NPM_AUTH_TOKEN}
       - name: 🚀 Publish
         run: pnpm publish
         working-directory: ./contracts/core-contracts
