@@ -23,7 +23,7 @@ jobs:
           command: manifest
           monorepo-tags: true
       - name: 🚀 Publish ${{ matrix.package }}
-        run: pnpm publish
+        run: npm publish
         working-directory: ${{ format('./{0}', matrix.package) }}
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
