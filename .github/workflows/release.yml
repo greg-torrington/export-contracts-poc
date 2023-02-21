@@ -24,13 +24,9 @@ jobs:
           monorepo-tags: true
 
   publish:
-    name: Publish
     runs-on: ubuntu-latest
     timeout-minutes: 30
     needs: [release-please]
-    strategy:
-      matrix:
-        package: ${{ fromJSON(needs.release-please.outputs.paths_released) }}
     steps:
       - uses: actions/checkout@v3
         with:
@@ -42,6 +38,6 @@ jobs:
         uses: ./.github/actions/package
       - name: 🚀 Publish
         run: pnpm publish
-        working-directory: ${{ format('./{0}', matrix.package) }}
+        working-directory: ./contracts
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
