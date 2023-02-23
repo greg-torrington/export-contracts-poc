@@ -9,7 +9,7 @@ runs:
       with:
         node-version-file: '.nvmrc'
         cache: 'pnpm'
-        scope: '@greg-torrington'
+        scope: '@export-contracts-poc'
         registry-url: 'https://npm.pkg.github.com'
     - name: Install dependencies
       run: pnpm install
