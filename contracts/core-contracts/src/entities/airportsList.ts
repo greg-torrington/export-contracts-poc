@@ -3,7 +3,7 @@ import { FromSchema } from 'json-schema-to-ts';
 const connectionSchema = {
   type: 'object',
   properties: {
-    iata: { type: 'string' },
+    iata: { type: 'number' },
   },
   required: ['iata'],
   additionalProperties: false,
