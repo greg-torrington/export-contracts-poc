@@ -22,7 +22,6 @@ jobs:
         id: release-please
         with:
           command: manifest
-          monorepo-tags: true
 
   publish:
     #if: ${{ needs.release-please.outputs.releases_created  }}
@@ -36,6 +35,8 @@ jobs:
           fetch-depth: 0
       - name: Install & cache node dependencies
         uses: ./.github/actions/install-node-deps
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Package and cache builds
         uses: ./.github/actions/package
       - run: pnpm config set @export-contracts-poc:registry=https://npm.pkg.github.com/
@@ -43,3 +44,5 @@ jobs:
       - name: 🚀 Publish
         run: pnpm publish --no-git-checks
         working-directory: ./contracts/core-contracts
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

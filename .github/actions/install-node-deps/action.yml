@@ -12,5 +12,5 @@ runs:
         scope: '@export-contracts-poc'
         registry-url: 'https://npm.pkg.github.com'
     - name: Install dependencies
-      run: pnpm install
+      run: pnpm install --frozen-lockfile
       shell: bash

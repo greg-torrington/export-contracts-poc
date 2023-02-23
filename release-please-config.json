@@ -1,7 +1,5 @@
 {
   "packages": {
-    "contracts/core-contracts": {
-      "package-name": "@export-contracts-poc/core-contracts"
-    }
+    "contracts/core-contracts": {}
   }
 }
