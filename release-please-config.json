@@ -1,7 +1,7 @@
 {
   "packages": {
     "contracts/core-contracts": {
-      "package-name": "@greg-torrington/core-contracts"
+      "package-name": "@export-contracts-poc/core-contracts"
     }
   }
 }
