@@ -6,6 +6,7 @@ on:
 name: release
 
 permissions:
+  id-token: write # This is required for aws-actions/configure-aws-credentials@master
   contents: write # This is required for actions/checkout (read) and google-github-actions/release-please-action@v3 (write)
   actions: read # This is required for nrwl/nx-set-shas
   packages: write # This is required for publish
@@ -24,11 +25,10 @@ jobs:
           monorepo-tags: true
 
   publish:
+    if: ${{ needs.release-please.outputs.releases_created  }}
     runs-on: ubuntu-latest
     timeout-minutes: 30
-    needs: [release-please]
-    env:
-          NPM_AUTH_TOKEN: ${{ secrets.AUTH_TOKEN }}
+    needs: release-please
     steps:
       - uses: actions/checkout@v3
         with:
@@ -38,8 +38,15 @@ jobs:
         uses: ./.github/actions/install-node-deps
       - name: Package and cache builds
         uses: ./.github/actions/package
-      - run: pnpm config set @greg-torrington:registry=https://npm.pkg.github.com/
-      - run: pnpm config set //npm.pkg.github.com/:_authToken=${NPM_AUTH_TOKEN}
+      - name: Setup Node.js
+        id: setup-node
+        uses: actions/setup-node@v3
+        registry-url: 'https://npm.pkg.github.com'
+        with:
+          node-version-file: '.nvmrc'
+          cache: 'pnpm'
+      - name: Set up NPM authentication
+        run: echo "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}" >> ~/.npmrc
       - name: 🚀 Publish
         run: pnpm publish --no-git-checks
         working-directory: ./contracts/core-contracts
