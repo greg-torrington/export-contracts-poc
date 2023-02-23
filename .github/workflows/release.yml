@@ -41,10 +41,13 @@ jobs:
       - name: Setup Node.js
         id: setup-node
         uses: actions/setup-node@v3
+        scope: '@greg-torrington'
+        registry-url: 'https://npm.pkg.github.com'
         with:
           node-version-file: '.nvmrc'
           cache: 'pnpm'
       - name: Set up NPM authentication
+        run: echo ""
         run: echo "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}" >> ~/.npmrc
       - name: 🚀 Publish
         run: pnpm publish --no-git-checks
