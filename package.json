@@ -1,6 +1,6 @@
 {
-  "name": "@greg-torrington/root",
-  "version": "2.0.0",
+  "name": "@export-contracts-poc/root",
+  "version": "1.1.7",
   "license": "MIT",
   "workspaces": [
     "contracts/*",
